@@ -1,0 +1,773 @@
+{
+  "components": [
+    {
+      "components": [
+        {
+          "name": "pageTitle",
+          "size": "H1",
+          "text": "Customer Orders",
+          "type": "heading"
+        },
+        {
+          "components": [
+            {
+              "class": "col-md-12",
+              "components": [
+                {
+                  "events": {
+                    "click": [
+                      {
+                        "path": "add-customer-orders",
+                        "then": [
+                          {
+                            "code": "grid0.Reload();",
+                            "type": "execute"
+                          },
+                          {
+                            "code": "await InvokeAsync(() => { StateHasChanged(); });",
+                            "type": "execute"
+                          }
+                        ],
+                        "type": "popup"
+                      }
+                    ]
+                  },
+                  "icon": "add_circle_outline",
+                  "name": "button0",
+                  "style": {
+                    "marginBottom": "10px"
+                  },
+                  "text": "Add",
+                  "type": "button"
+                },
+                {
+                  "allowFiltering": true,
+                  "allowPaging": true,
+                  "allowSorting": true,
+                  "columns": [
+                    {
+                      "property": "CustomerID",
+                      "title": "Customer ID"
+                    },
+                    {
+                      "property": "CompanyName",
+                      "title": "Company Name"
+                    },
+                    {
+                      "property": "Address",
+                      "title": "Address"
+                    },
+                    {
+                      "property": "City",
+                      "title": "City"
+                    },
+                    {
+                      "property": "Region",
+                      "title": "Region"
+                    },
+                    {
+                      "property": "PostalCode",
+                      "title": "Postal Code"
+                    },
+                    {
+                      "property": "Country",
+                      "title": "Country"
+                    },
+                    {
+                      "property": "Phone",
+                      "title": "Phone"
+                    },
+                    {
+                      "filterable": false,
+                      "sortable": false,
+                      "template": [
+                        {
+                          "attributes": [
+                            {
+                              "name": "@onclick:stopPropagation",
+                              "value": true
+                            }
+                          ],
+                          "buttonStyle": "danger",
+                          "events": {
+                            "click": [
+                              {
+                                "error": [
+                                  {
+                                    "detail": "Unable to delete Customer",
+                                    "severity": "error",
+                                    "summary": "Error",
+                                    "type": "notify"
+                                  }
+                                ],
+                                "name": "Northwind.deleteCustomer",
+                                "parameters": [
+                                  {
+                                    "name": "CustomerID",
+                                    "value": "${data.CustomerID}"
+                                  }
+                                ],
+                                "then": [
+                                  {
+                                    "code": "grid0.Reload();",
+                                    "condition": "result != null",
+                                    "type": "execute"
+                                  }
+                                ],
+                                "type": "invoke"
+                              }
+                            ]
+                          },
+                          "icon": "close",
+                          "name": "gridDeleteButton",
+                          "size": "sm",
+                          "text": "",
+                          "type": "button"
+                        }
+                      ],
+                      "textAlign": "center",
+                      "width": "70px"
+                    }
+                  ],
+                  "data": "${getCustomersResult}",
+                  "events": {
+                    "loadData": [],
+                    "rowExpand": [
+                      {
+                        "name": "master",
+                        "type": "set",
+                        "value": "${event}"
+                      },
+                      {
+                        "name": "Northwind.getOrders",
+                        "parameters": [
+                          {
+                            "name": "$filter",
+                            "value": "i => i.CustomerID == '${event.CustomerID}'"
+                          }
+                        ],
+                        "then": [
+                          {
+                            "code": "foreach(var r in ${result}.ToList()){event.Orders.Add(r);}",
+                            "type": "execute"
+                          }
+                        ],
+                        "type": "invoke"
+                      }
+                    ],
+                    "rowSelect": [
+                      {
+                        "parameters": [
+                          {
+                            "name": "CustomerID",
+                            "value": "${event.CustomerID}"
+                          }
+                        ],
+                        "path": "edit-customer-orders",
+                        "then": [
+                          {
+                            "code": "await InvokeAsync(() => { StateHasChanged(); });",
+                            "type": "execute"
+                          }
+                        ],
+                        "type": "popup"
+                      }
+                    ]
+                  },
+                  "itemType": "NwBlazor.Models.Northwind.Customer",
+                  "name": "grid0",
+                  "template": [
+                    {
+                      "components": [
+                        {
+                          "class": "col-md-12 col-xl-1",
+                          "components": [
+                            {
+                              "name": "heading1",
+                              "size": "H2",
+                              "text": "Orders",
+                              "type": "heading"
+                            }
+                          ],
+                          "name": "col2",
+                          "type": "col"
+                        },
+                        {
+                          "class": "col-md-12 col-xl-1",
+                          "components": [
+                            {
+                              "events": {
+                                "click": [
+                                  {
+                                    "parameters": [
+                                      {
+                                        "name": "CustomerID",
+                                        "type": "string",
+                                        "value": "${data.CustomerID}"
+                                      }
+                                    ],
+                                    "path": "add-order",
+                                    "then": [
+                                      {
+                                        "code": "grid1.Reload();",
+                                        "type": "execute"
+                                      }
+                                    ],
+                                    "type": "popup"
+                                  }
+                                ]
+                              },
+                              "icon": "add_circle_outline",
+                              "name": "OrderAddButton",
+                              "size": "sm",
+                              "style": {
+                                "marginBottom": "10px"
+                              },
+                              "text": "",
+                              "type": "button"
+                            }
+                          ],
+                          "name": "col1",
+                          "style": {
+                            "display": "block",
+                            "textAlign": "center",
+                            "verticalAlign": "middle"
+                          },
+                          "type": "col"
+                        },
+                        {
+                          "class": "col-md-12 col-xl-10",
+                          "components": [
+                            {
+                              "allowFiltering": true,
+                              "allowPaging": true,
+                              "allowSorting": true,
+                              "columns": [
+                                {
+                                  "formatString": "{0:d}",
+                                  "property": "OrderDate",
+                                  "title": "Order Date"
+                                },
+                                {
+                                  "filterProperty": "Employee.LastName",
+                                  "property": "EmployeeID",
+                                  "sortProperty": "Employee.LastName",
+                                  "template": "${data.Employee?.LastName}",
+                                  "title": "Employee"
+                                },
+                                {
+                                  "filterProperty": "Shipper.CompanyName",
+                                  "property": "ShipVia",
+                                  "sortProperty": "Shipper.CompanyName",
+                                  "template": "${data.Shipper?.CompanyName}",
+                                  "title": "Shipper"
+                                },
+                                {
+                                  "property": "Freight",
+                                  "title": "Freight"
+                                },
+                                {
+                                  "property": "ShipName",
+                                  "title": "Ship Name"
+                                },
+                                {
+                                  "property": "ShipAddress",
+                                  "title": "Ship Address"
+                                },
+                                {
+                                  "property": "ShipCity",
+                                  "title": "Ship City"
+                                },
+                                {
+                                  "property": "ShipRegion",
+                                  "title": "Ship Region"
+                                },
+                                {
+                                  "property": "ShipPostalCode",
+                                  "title": "Ship Postal Code"
+                                },
+                                {
+                                  "filterable": false,
+                                  "sortable": false,
+                                  "template": [
+                                    {
+                                      "attributes": [
+                                        {
+                                          "name": "@onclick:stopPropagation",
+                                          "value": true
+                                        }
+                                      ],
+                                      "buttonStyle": "danger",
+                                      "events": {
+                                        "click": [
+                                          {
+                                            "error": [
+                                              {
+                                                "detail": "Unable to delete Order",
+                                                "severity": "error",
+                                                "summary": "Error",
+                                                "type": "notify"
+                                              }
+                                            ],
+                                            "name": "Northwind.deleteOrder",
+                                            "parameters": [
+                                              {
+                                                "name": "OrderID",
+                                                "value": "${data.OrderID}"
+                                              }
+                                            ],
+                                            "then": [
+                                              {
+                                                "code": "grid1.Reload();",
+                                                "condition": "result != null",
+                                                "type": "execute"
+                                              }
+                                            ],
+                                            "type": "invoke"
+                                          }
+                                        ]
+                                      },
+                                      "icon": "close",
+                                      "name": "OrderDeleteButton",
+                                      "size": "sm",
+                                      "text": "",
+                                      "type": "button"
+                                    }
+                                  ],
+                                  "textAlign": "center",
+                                  "width": "70px"
+                                }
+                              ],
+                              "count": "",
+                              "data": "${data.Orders}",
+                              "events": {
+                                "loadData": [],
+                                "rowExpand": [
+                                  {
+                                    "name": "master",
+                                    "type": "set",
+                                    "value": "${event}"
+                                  },
+                                  {
+                                    "name": "Northwind.getOrderDetails",
+                                    "parameters": [
+                                      {
+                                        "name": "$filter",
+                                        "value": "i => i.OrderID == ${event.OrderID}"
+                                      }
+                                    ],
+                                    "then": [
+                                      {
+                                        "code": "foreach(var r in ${result}.ToList()){event.OrderDetails.Add(r);}",
+                                        "type": "execute"
+                                      }
+                                    ],
+                                    "type": "invoke"
+                                  }
+                                ],
+                                "rowSelect": [
+                                  {
+                                    "parameters": [
+                                      {
+                                        "name": "OrderID",
+                                        "value": "${event.OrderID}"
+                                      }
+                                    ],
+                                    "path": "edit-order-detail",
+                                    "then": [
+                                      {
+                                        "code": "await InvokeAsync(() => { StateHasChanged(); });",
+                                        "type": "execute"
+                                      }
+                                    ],
+                                    "type": "popup"
+                                  }
+                                ]
+                              },
+                              "itemType": "NwBlazor.Models.Northwind.Order",
+                              "name": "grid1",
+                              "template": [
+                                {
+                                  "components": [
+                                    {
+                                      "class": "col-md-12 col-xl-1",
+                                      "components": [
+                                        {
+                                          "name": "heading1",
+                                          "size": "H2",
+                                          "text": "Details",
+                                          "type": "heading"
+                                        }
+                                      ],
+                                      "name": "col2",
+                                      "type": "col"
+                                    },
+                                    {
+                                      "class": "col-md-12 col-xl-1",
+                                      "components": [
+                                        {
+                                          "events": {
+                                            "click": [
+                                              {
+                                                "parameters": [
+                                                  {
+                                                    "name": "OrderID",
+                                                    "type": "integer",
+                                                    "value": "${data.OrderID}"
+                                                  }
+                                                ],
+                                                "path": "add-order-detail",
+                                                "then": [
+                                                  {
+                                                    "code": "grid2.Reload();",
+                                                    "type": "execute"
+                                                  }
+                                                ],
+                                                "type": "popup"
+                                              }
+                                            ]
+                                          },
+                                          "icon": "add_circle_outline",
+                                          "name": "OrderDetailAddButton",
+                                          "size": "sm",
+                                          "style": {
+                                            "marginBottom": "10px"
+                                          },
+                                          "text": "",
+                                          "type": "button"
+                                        }
+                                      ],
+                                      "name": "col1",
+                                      "type": "col"
+                                    },
+                                    {
+                                      "class": "col-md-12 col-xl-10",
+                                      "components": [
+                                        {
+                                          "allowFiltering": true,
+                                          "allowPaging": true,
+                                          "allowSorting": true,
+                                          "columns": [
+                                            {
+                                              "editTemplate": [
+                                                {
+                                                  "data": "${getProductsResult}",
+                                                  "name": "ProductID",
+                                                  "style": {
+                                                    "display": "block",
+                                                    "width": "100%"
+                                                  },
+                                                  "textProperty": "ProductName",
+                                                  "type": "dropdown",
+                                                  "value": "${data.ProductID}",
+                                                  "valueProperty": "ProductID"
+                                                }
+                                              ],
+                                              "filterProperty": "Product.ProductName",
+                                              "property": "ProductID",
+                                              "sortProperty": "Product.ProductName",
+                                              "template": "${data.Product?.ProductName}",
+                                              "title": "Product"
+                                            },
+                                            {
+                                              "editTemplate": [
+                                                {
+                                                  "name": "Quantity",
+                                                  "style": {
+                                                    "display": "block",
+                                                    "width": "100%"
+                                                  },
+                                                  "type": "numeric",
+                                                  "value": "${data.Quantity}"
+                                                }
+                                              ],
+                                              "property": "Quantity",
+                                              "title": "Quantity"
+                                            },
+                                            {
+                                              "editTemplate": [
+                                                {
+                                                  "name": "Discount",
+                                                  "style": {
+                                                    "display": "block",
+                                                    "width": "100%"
+                                                  },
+                                                  "type": "numeric",
+                                                  "value": "${data.Discount}"
+                                                }
+                                              ],
+                                              "property": "Discount",
+                                              "title": "Discount"
+                                            },
+                                            {
+                                              "editTemplate": [
+                                                {
+                                                  "name": "UnitPrice",
+                                                  "style": {
+                                                    "display": "block",
+                                                    "width": "100%"
+                                                  },
+                                                  "type": "numeric",
+                                                  "value": "${data.UnitPrice}"
+                                                }
+                                              ],
+                                              "property": "UnitPrice",
+                                              "title": "Unit Price"
+                                            },
+                                            {
+                                              "editTemplate": [
+                                                {
+                                                  "data": "${getOrdersResult}",
+                                                  "name": "OrderID",
+                                                  "style": {
+                                                    "display": "block",
+                                                    "width": "100%"
+                                                  },
+                                                  "textProperty": "CustomerID",
+                                                  "type": "dropdown",
+                                                  "value": "${data.OrderID}",
+                                                  "valueProperty": "OrderID"
+                                                },
+                                                {
+                                                  "component": "OrderID",
+                                                  "popup": true,
+                                                  "type": "required-validator"
+                                                }
+                                              ],
+                                              "filterProperty": "Order.CustomerID",
+                                              "property": "OrderID",
+                                              "sortProperty": "Order.CustomerID",
+                                              "template": "${data.Order?.CustomerID}",
+                                              "title": "Order"
+                                            },
+                                            {
+                                              "editTemplate": [
+                                                {
+                                                  "events": {
+                                                    "click": [
+                                                      {
+                                                        "code": "${this.grid2.UpdateRow(data)}",
+                                                        "type": "execute"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "icon": "save",
+                                                  "name": "saveButton",
+                                                  "size": "sm",
+                                                  "text": "",
+                                                  "type": "button"
+                                                },
+                                                {
+                                                  "buttonStyle": "secondary",
+                                                  "events": {
+                                                    "click": [
+                                                      {
+                                                        "code": "${this.grid2.CancelEditRow(data)}",
+                                                        "type": "execute"
+                                                      },
+                                                      {
+                                                        "name": "Northwind.cancelOrderDetailChanges",
+                                                        "parameters": [
+                                                          {
+                                                            "name": "OrderDetail",
+                                                            "value": "${data}"
+                                                          }
+                                                        ],
+                                                        "type": "invoke"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "icon": "cancel",
+                                                  "name": "cancelButton",
+                                                  "size": "sm",
+                                                  "text": "",
+                                                  "type": "button"
+                                                }
+                                              ],
+                                              "filterable": false,
+                                              "sortable": false,
+                                              "template": [
+                                                {
+                                                  "events": {
+                                                    "click": [
+                                                      {
+                                                        "code": "${this.grid2.EditRow(data)}",
+                                                        "type": "execute"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "icon": "edit",
+                                                  "name": "editButton",
+                                                  "size": "sm",
+                                                  "text": "",
+                                                  "type": "button"
+                                                }
+                                              ],
+                                              "textAlign": "center",
+                                              "width": "70px"
+                                            },
+                                            {
+                                              "filterable": false,
+                                              "sortable": false,
+                                              "template": [
+                                                {
+                                                  "attributes": [
+                                                    {
+                                                      "name": "@onclick:stopPropagation",
+                                                      "value": true
+                                                    }
+                                                  ],
+                                                  "buttonStyle": "danger",
+                                                  "events": {
+                                                    "click": [
+                                                      {
+                                                        "error": [
+                                                          {
+                                                            "detail": "Unable to delete OrderDetail",
+                                                            "severity": "error",
+                                                            "summary": "Error",
+                                                            "type": "notify"
+                                                          }
+                                                        ],
+                                                        "name": "Northwind.deleteOrderDetail",
+                                                        "parameters": [
+                                                          {
+                                                            "name": "ProductID",
+                                                            "value": "${data.ProductID}"
+                                                          },
+                                                          {
+                                                            "name": "OrderID",
+                                                            "value": "${data.OrderID}"
+                                                          }
+                                                        ],
+                                                        "then": [
+                                                          {
+                                                            "code": "grid2.Reload();",
+                                                            "condition": "result != null",
+                                                            "type": "execute"
+                                                          }
+                                                        ],
+                                                        "type": "invoke"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "icon": "close",
+                                                  "name": "OrderDetailDeleteButton",
+                                                  "size": "sm",
+                                                  "text": "",
+                                                  "type": "button"
+                                                }
+                                              ],
+                                              "textAlign": "center",
+                                              "width": "70px"
+                                            }
+                                          ],
+                                          "count": "",
+                                          "data": "${data.OrderDetails}",
+                                          "events": {
+                                            "loadData": [],
+                                            "rowUpdate": [
+                                              {
+                                                "name": "Northwind.updateOrderDetail",
+                                                "parameters": [
+                                                  {
+                                                    "name": "ProductID",
+                                                    "value": "${event.ProductID}"
+                                                  },
+                                                  {
+                                                    "name": "OrderID",
+                                                    "value": "${event.OrderID}"
+                                                  },
+                                                  {
+                                                    "name": "OrderDetail",
+                                                    "value": "${event}"
+                                                  }
+                                                ],
+                                                "type": "invoke"
+                                              }
+                                            ]
+                                          },
+                                          "itemType": "NwBlazor.Models.Northwind.OrderDetail",
+                                          "name": "grid2",
+                                          "title": "",
+                                          "type": "grid"
+                                        }
+                                      ],
+                                      "name": "col0",
+                                      "type": "col"
+                                    }
+                                  ],
+                                  "name": "row0",
+                                  "type": "row"
+                                }
+                              ],
+                              "title": "",
+                              "type": "grid"
+                            }
+                          ],
+                          "name": "col0",
+                          "type": "col"
+                        }
+                      ],
+                      "name": "row0",
+                      "type": "row"
+                    }
+                  ],
+                  "title": "",
+                  "type": "grid"
+                }
+              ],
+              "type": "col"
+            }
+          ],
+          "type": "row"
+        }
+      ],
+      "container": "main",
+      "type": "content"
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "name": "Northwind.getCustomers",
+        "parameters": [],
+        "then": [
+          {
+            "name": "getCustomersResult",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IEnumerable<NwBlazor.Models.Northwind.Customer>"
+          }
+        ],
+        "type": "invoke"
+      },
+      {
+        "name": "Northwind.getProducts",
+        "then": [
+          {
+            "name": "getProductsResult",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IEnumerable<NwBlazor.Models.Northwind.Product>"
+          }
+        ],
+        "type": "invoke"
+      },
+      {
+        "name": "Northwind.getOrders",
+        "then": [
+          {
+            "name": "getOrdersResult",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IEnumerable<NwBlazor.Models.Northwind.Order>"
+          }
+        ],
+        "type": "invoke"
+      }
+    ]
+  },
+  "layout": "Main",
+  "name": "Customer Orders"
+}

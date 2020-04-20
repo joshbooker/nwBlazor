@@ -1,0 +1,45 @@
+﻿@page "/order-detail"
+@layout MainLayout
+@inherits NwBlazor.Pages.OrderDetailComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using NwBlazor.Models.Northwind
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="Order Detail">
+    </RadzenHeading>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add" Click="@Button0Click">
+        </RadzenButton>
+        <RadzenGrid @ref="grid0" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="@getOrderDetailsResult" TItem="NwBlazor.Models.Northwind.OrderDetail" RowSelect="@Grid0RowSelect">
+          <Columns>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.OrderDetail" Property="OrderID" SortProperty="Order.CustomerID" FilterProperty="Order.CustomerID" Title="Order">
+              <Template Context="data">
+              @(data.Order?.CustomerID)
+              </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.OrderDetail" Property="ProductID" SortProperty="Product.ProductName" FilterProperty="Product.ProductName" Title="Product">
+              <Template Context="data">
+              @(data.Product?.ProductName)
+              </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.OrderDetail" Property="UnitPrice" Title="Unit Price">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.OrderDetail" Property="Quantity" Title="Quantity">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.OrderDetail" Property="Discount" Title="Discount">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.OrderDetail" Filterable="false" Sortable="false" Width="70px" TextAlign="TextAlign.Center">
+              <Template Context="nwBlazorModelsNorthwindOrderDetail">
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>GridDeleteButtonClick(args, nwBlazorModelsNorthwindOrderDetail))" @onclick:stopPropagation="true">
+                </RadzenButton>
+              </Template>
+            </RadzenGridColumn>
+          </Columns>
+        </RadzenGrid>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

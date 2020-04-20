@@ -1,0 +1,600 @@
+{
+  "components": [
+    {
+      "components": [
+        {
+          "components": [
+            {
+              "class": "col-md-12",
+              "components": [
+                {
+                  "components": [
+                    {
+                      "components": [
+                        {
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "component": "EmployeeID",
+                              "name": "EmployeeIDLabel",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "text": "Employee",
+                              "type": "label"
+                            }
+                          ],
+                          "type": "col"
+                        },
+                        {
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "data": "${getEmployeesResult}",
+                              "name": "EmployeeID",
+                              "placeholder": "Choose Employee",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "textProperty": "LastName",
+                              "type": "dropdown",
+                              "value": "${order.EmployeeID}",
+                              "valueProperty": "EmployeeID",
+                              "valueType": "int?"
+                            }
+                          ],
+                          "type": "col"
+                        }
+                      ],
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "type": "row"
+                    },
+                    {
+                      "components": [
+                        {
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "component": "OrderDate",
+                              "name": "OrderDateLabel",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "text": "Order Date",
+                              "type": "label"
+                            }
+                          ],
+                          "type": "col"
+                        },
+                        {
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "name": "OrderDate",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "type": "datepicker",
+                              "value": "${order.OrderDate}",
+                              "valueType": "DateTime?"
+                            }
+                          ],
+                          "type": "col"
+                        }
+                      ],
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "type": "row"
+                    },
+                    {
+                      "components": [
+                        {
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "component": "RequiredDate",
+                              "name": "RequiredDateLabel",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "text": "Required Date",
+                              "type": "label"
+                            }
+                          ],
+                          "type": "col"
+                        },
+                        {
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "name": "RequiredDate",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "type": "datepicker",
+                              "value": "${order.RequiredDate}",
+                              "valueType": "DateTime?"
+                            }
+                          ],
+                          "type": "col"
+                        }
+                      ],
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "type": "row"
+                    },
+                    {
+                      "components": [
+                        {
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "component": "ShippedDate",
+                              "name": "ShippedDateLabel",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "text": "Shipped Date",
+                              "type": "label"
+                            }
+                          ],
+                          "type": "col"
+                        },
+                        {
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "name": "ShippedDate",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "type": "datepicker",
+                              "value": "${order.ShippedDate}",
+                              "valueType": "DateTime?"
+                            }
+                          ],
+                          "type": "col"
+                        }
+                      ],
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "type": "row"
+                    },
+                    {
+                      "components": [
+                        {
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "component": "ShipVia",
+                              "name": "ShipViaLabel",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "text": "Shipper",
+                              "type": "label"
+                            }
+                          ],
+                          "type": "col"
+                        },
+                        {
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "data": "${getShippersResult}",
+                              "name": "ShipVia",
+                              "placeholder": "Choose Shipper",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "textProperty": "CompanyName",
+                              "type": "dropdown",
+                              "value": "${order.ShipVia}",
+                              "valueProperty": "ShipperID",
+                              "valueType": "int?"
+                            }
+                          ],
+                          "type": "col"
+                        }
+                      ],
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "type": "row"
+                    },
+                    {
+                      "components": [
+                        {
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "component": "Freight",
+                              "name": "FreightLabel",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "text": "Freight",
+                              "type": "label"
+                            }
+                          ],
+                          "type": "col"
+                        },
+                        {
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "name": "Freight",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "type": "numeric",
+                              "value": "${order.Freight}",
+                              "valueType": "decimal?"
+                            }
+                          ],
+                          "type": "col"
+                        }
+                      ],
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "type": "row"
+                    },
+                    {
+                      "components": [
+                        {
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "component": "ShipName",
+                              "name": "ShipNameLabel",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "text": "Ship Name",
+                              "type": "label"
+                            }
+                          ],
+                          "type": "col"
+                        },
+                        {
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "maxLength": 40,
+                              "name": "ShipName",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "type": "textbox",
+                              "value": "${order.ShipName}",
+                              "valueType": "string"
+                            }
+                          ],
+                          "type": "col"
+                        }
+                      ],
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "type": "row"
+                    },
+                    {
+                      "components": [
+                        {
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "component": "ShipAddress",
+                              "name": "ShipAddressLabel",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "text": "Ship Address",
+                              "type": "label"
+                            }
+                          ],
+                          "type": "col"
+                        },
+                        {
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "maxLength": 60,
+                              "name": "ShipAddress",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "type": "textbox",
+                              "value": "${order.ShipAddress}",
+                              "valueType": "string"
+                            }
+                          ],
+                          "type": "col"
+                        }
+                      ],
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "type": "row"
+                    },
+                    {
+                      "components": [
+                        {
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "component": "ShipCity",
+                              "name": "ShipCityLabel",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "text": "Ship City",
+                              "type": "label"
+                            }
+                          ],
+                          "type": "col"
+                        },
+                        {
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "maxLength": 15,
+                              "name": "ShipCity",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "type": "textbox",
+                              "value": "${order.ShipCity}",
+                              "valueType": "string"
+                            }
+                          ],
+                          "type": "col"
+                        }
+                      ],
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "type": "row"
+                    },
+                    {
+                      "components": [
+                        {
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "component": "ShipRegion",
+                              "name": "ShipRegionLabel",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "text": "Ship Region",
+                              "type": "label"
+                            }
+                          ],
+                          "type": "col"
+                        },
+                        {
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "maxLength": 15,
+                              "name": "ShipRegion",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "type": "textbox",
+                              "value": "${order.ShipRegion}",
+                              "valueType": "string"
+                            }
+                          ],
+                          "type": "col"
+                        }
+                      ],
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "type": "row"
+                    },
+                    {
+                      "components": [
+                        {
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "component": "ShipPostalCode",
+                              "name": "ShipPostalCodeLabel",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "text": "Ship Postal Code",
+                              "type": "label"
+                            }
+                          ],
+                          "type": "col"
+                        },
+                        {
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "maxLength": 10,
+                              "name": "ShipPostalCode",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "type": "textbox",
+                              "value": "${order.ShipPostalCode}",
+                              "valueType": "string"
+                            }
+                          ],
+                          "type": "col"
+                        }
+                      ],
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "type": "row"
+                    },
+                    {
+                      "components": [
+                        {
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "component": "ShipCountry",
+                              "name": "ShipCountryLabel",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "text": "Ship Country",
+                              "type": "label"
+                            }
+                          ],
+                          "type": "col"
+                        },
+                        {
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "maxLength": 15,
+                              "name": "ShipCountry",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "type": "textbox",
+                              "value": "${order.ShipCountry}",
+                              "valueType": "string"
+                            }
+                          ],
+                          "type": "col"
+                        }
+                      ],
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "type": "row"
+                    },
+                    {
+                      "components": [
+                        {
+                          "class": "col offset-sm-3",
+                          "components": [
+                            {
+                              "buttonStyle": "primary",
+                              "buttonType": "submit",
+                              "icon": "save",
+                              "text": "Save",
+                              "type": "button"
+                            },
+                            {
+                              "buttonStyle": "light",
+                              "events": {
+                                "click": [
+                                  {
+                                    "type": "close-popup"
+                                  }
+                                ]
+                              },
+                              "text": "Cancel",
+                              "type": "button"
+                            }
+                          ],
+                          "type": "col"
+                        }
+                      ],
+                      "type": "row"
+                    }
+                  ],
+                  "data": "${order}",
+                  "events": {
+                    "submit": [
+                      {
+                        "code": "order.CustomerID = CustomerID;",
+                        "type": "execute"
+                      },
+                      {
+                        "error": [
+                          {
+                            "detail": "Unable to create new Order!",
+                            "severity": "error",
+                            "summary": "Error",
+                            "type": "notify"
+                          }
+                        ],
+                        "name": "Northwind.createOrder",
+                        "parameters": [
+                          {
+                            "name": "Order",
+                            "value": "${order}"
+                          }
+                        ],
+                        "then": [
+                          {
+                            "result": "${order}",
+                            "type": "close-popup"
+                          }
+                        ],
+                        "type": "invoke"
+                      }
+                    ]
+                  },
+                  "itemType": "NwBlazor.Models.Northwind.Order",
+                  "name": "form0",
+                  "type": "template-form",
+                  "visible": "${order != null}"
+                }
+              ],
+              "type": "col"
+            }
+          ],
+          "type": "row"
+        }
+      ],
+      "container": "main",
+      "type": "content"
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "name": "Northwind.getEmployees",
+        "parameters": [],
+        "then": [
+          {
+            "name": "getEmployeesResult",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IEnumerable<NwBlazor.Models.Northwind.Employee>"
+          }
+        ],
+        "type": "invoke"
+      },
+      {
+        "name": "Northwind.getShippers",
+        "parameters": [],
+        "then": [
+          {
+            "name": "getShippersResult",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IEnumerable<NwBlazor.Models.Northwind.Shipper>"
+          }
+        ],
+        "type": "invoke"
+      },
+      {
+        "name": "order",
+        "type": "set",
+        "value": "new NwBlazor.Models.Northwind.Order()",
+        "valueType": "NwBlazor.Models.Northwind.Order"
+      }
+    ]
+  },
+  "layout": "Main",
+  "name": "Add Order"
+}

@@ -1,0 +1,81 @@
+﻿@page "/add-order-detail/{OrderID}"
+@layout MainLayout
+@inherits NwBlazor.Pages.AddOrderDetailComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using NwBlazor.Models.Northwind
+<RadzenContent Container="main">
+  <ChildContent>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenTemplateForm Data="@orderdetail" TItem="NwBlazor.Models.Northwind.OrderDetail" Visible="@(orderdetail != null)" Submit="@Form0Submit">
+          <ChildContent>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="OrderID" style="width: 100%" Text="Order">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenDropDown Data="@getOrdersResult" Placeholder="Choose Order" style="display: block; width: 100%" TextProperty="CustomerID" @bind-Value="@(orderdetail.OrderID)" ValueProperty="OrderID" Name="OrderID">
+                </RadzenDropDown>
+                <RadzenRequiredValidator Component="OrderID" DefaultValue="0" style="position: absolute" Text="OrderID is required">
+                </RadzenRequiredValidator>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="ProductID" style="width: 100%" Text="Product">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenDropDown Data="@getProductsResult" Placeholder="Choose Product" style="display: block; width: 100%" TextProperty="ProductName" @bind-Value="@(orderdetail.ProductID)" ValueProperty="ProductID" Name="ProductID">
+                </RadzenDropDown>
+                <RadzenRequiredValidator Component="ProductID" DefaultValue="0" style="position: absolute" Text="ProductID is required">
+                </RadzenRequiredValidator>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="UnitPrice" style="width: 100%" Text="Unit Price">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenNumeric style="width: 100%" @bind-Value="@(orderdetail.UnitPrice)" Name="UnitPrice">
+                </RadzenNumeric>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="Quantity" style="width: 100%" Text="Quantity">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenNumeric style="width: 100%" @bind-Value="@(orderdetail.Quantity)" Name="Quantity">
+                </RadzenNumeric>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="Discount" style="width: 100%" Text="Discount">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenNumeric style="width: 100%" @bind-Value="@(orderdetail.Discount)" Name="Discount">
+                </RadzenNumeric>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col offset-sm-3">
+                <RadzenButton ButtonStyle="ButtonStyle.Primary" ButtonType="ButtonType.Submit" Icon="save" Text="Save">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Light" Text="Cancel" Click="@Button2Click">
+                </RadzenButton>
+              </div>
+            </div>
+          </ChildContent>
+        </RadzenTemplateForm>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

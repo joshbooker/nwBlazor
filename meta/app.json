@@ -1,0 +1,38 @@
+{
+  "dataSources": [
+    "Northwind"
+  ],
+  "generator": "@radzen/blazor-server",
+  "https": false,
+  "layouts": [
+    "Login",
+    "Main"
+  ],
+  "logo": "",
+  "name": "NWBlazor",
+  "navigation": [
+    "Customer Orders",
+    "Orders Inline",
+    "Order Details",
+    "Order Detail Inline",
+    "Order Detail"
+  ],
+  "pages": [
+    "Customer Orders",
+    "Add Order",
+    "Add Customer Orders",
+    "Edit Customer Orders",
+    "Edit Order",
+    "Order Details",
+    "Add Order Detail",
+    "Order Detail Inline",
+    "Order Inline",
+    "Order Detail",
+    "Edit Order Detail"
+  ],
+  "serverLang": "cs",
+  "serverProject": true,
+  "serverVersion": "3",
+  "startPage": "Customer Orders",
+  "theme": "default"
+}

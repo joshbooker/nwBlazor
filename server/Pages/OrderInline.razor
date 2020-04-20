@@ -1,0 +1,128 @@
+﻿@page "/order-inline"
+@layout MainLayout
+@inherits NwBlazor.Pages.OrderInlineComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using NwBlazor.Models.Northwind
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="Order Inline">
+    </RadzenHeading>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenGrid @ref="grid0" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="@getOrdersResult" TItem="NwBlazor.Models.Northwind.Order" RowUpdate="@Grid0RowUpdate">
+          <Columns>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.Order" Property="OrderID" Title="Order ID">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.Order" FilterProperty="Customer.CompanyName" Property="CustomerID" SortProperty="Customer.CompanyName" Title="Customer">
+              <EditTemplate Context="nwBlazorModelsNorthwindOrder">
+                <RadzenDropDown Data="@getCustomersResult" style="display: block; width: 100%" TextProperty="CompanyName" @bind-Value="@(nwBlazorModelsNorthwindOrder.CustomerID)" ValueProperty="CustomerID" Name="CustomerID">
+                </RadzenDropDown>
+              </EditTemplate>
+              <Template Context="data">
+              @(data.Customer?.CompanyName)
+              </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.Order" FilterProperty="Employee.LastName" Property="EmployeeID" SortProperty="Employee.LastName" Title="Employee">
+              <EditTemplate Context="nwBlazorModelsNorthwindOrder">
+                <RadzenDropDown Data="@getEmployeesResult" style="display: block; width: 100%" TextProperty="LastName" @bind-Value="@(nwBlazorModelsNorthwindOrder.EmployeeID)" ValueProperty="EmployeeID" Name="EmployeeID">
+                </RadzenDropDown>
+              </EditTemplate>
+              <Template Context="data">
+              @(data.Employee?.LastName)
+              </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.Order" FormatString="{0:d}" Property="OrderDate" Title="Order Date">
+              <EditTemplate Context="nwBlazorModelsNorthwindOrder">
+                <RadzenDatePicker style="display: block; width: 100%" @bind-Value="@(nwBlazorModelsNorthwindOrder.OrderDate)" Name="OrderDate">
+                </RadzenDatePicker>
+              </EditTemplate>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.Order" FormatString="{0:d}" Property="RequiredDate" Title="Required Date">
+              <EditTemplate Context="nwBlazorModelsNorthwindOrder">
+                <RadzenDatePicker style="display: block; width: 100%" @bind-Value="@(nwBlazorModelsNorthwindOrder.RequiredDate)" Name="RequiredDate">
+                </RadzenDatePicker>
+              </EditTemplate>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.Order" FormatString="{0:d}" Property="ShippedDate" Title="Shipped Date">
+              <EditTemplate Context="nwBlazorModelsNorthwindOrder">
+                <RadzenDatePicker style="display: block; width: 100%" @bind-Value="@(nwBlazorModelsNorthwindOrder.ShippedDate)" Name="ShippedDate">
+                </RadzenDatePicker>
+              </EditTemplate>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.Order" FilterProperty="Shipper.CompanyName" Property="ShipVia" SortProperty="Shipper.CompanyName" Title="Shipper">
+              <EditTemplate Context="nwBlazorModelsNorthwindOrder">
+                <RadzenDropDown Data="@getShippersResult" style="display: block; width: 100%" TextProperty="CompanyName" @bind-Value="@(nwBlazorModelsNorthwindOrder.ShipVia)" ValueProperty="ShipperID" Name="ShipVia">
+                </RadzenDropDown>
+              </EditTemplate>
+              <Template Context="data">
+              @(data.Shipper?.CompanyName)
+              </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.Order" Property="Freight" Title="Freight">
+              <EditTemplate Context="nwBlazorModelsNorthwindOrder">
+                <RadzenNumeric style="display: block; width: 100%" @bind-Value="@(nwBlazorModelsNorthwindOrder.Freight)" Name="Freight">
+                </RadzenNumeric>
+              </EditTemplate>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.Order" Property="ShipName" Title="Ship Name">
+              <EditTemplate Context="nwBlazorModelsNorthwindOrder">
+                <RadzenTextBox style="display: block; width: 100%" @bind-Value="@(nwBlazorModelsNorthwindOrder.ShipName)" Name="ShipName">
+                </RadzenTextBox>
+              </EditTemplate>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.Order" Property="ShipAddress" Title="Ship Address">
+              <EditTemplate Context="nwBlazorModelsNorthwindOrder">
+                <RadzenTextBox style="display: block; width: 100%" @bind-Value="@(nwBlazorModelsNorthwindOrder.ShipAddress)" Name="ShipAddress">
+                </RadzenTextBox>
+              </EditTemplate>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.Order" Property="ShipCity" Title="Ship City">
+              <EditTemplate Context="nwBlazorModelsNorthwindOrder">
+                <RadzenTextBox style="display: block; width: 100%" @bind-Value="@(nwBlazorModelsNorthwindOrder.ShipCity)" Name="ShipCity">
+                </RadzenTextBox>
+              </EditTemplate>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.Order" Property="ShipRegion" Title="Ship Region">
+              <EditTemplate Context="nwBlazorModelsNorthwindOrder">
+                <RadzenTextBox style="display: block; width: 100%" @bind-Value="@(nwBlazorModelsNorthwindOrder.ShipRegion)" Name="ShipRegion">
+                </RadzenTextBox>
+              </EditTemplate>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.Order" Property="ShipPostalCode" Title="Ship Postal Code">
+              <EditTemplate Context="nwBlazorModelsNorthwindOrder">
+                <RadzenTextBox style="display: block; width: 100%" @bind-Value="@(nwBlazorModelsNorthwindOrder.ShipPostalCode)" Name="ShipPostalCode">
+                </RadzenTextBox>
+              </EditTemplate>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.Order" Property="ShipCountry" Title="Ship Country">
+              <EditTemplate Context="nwBlazorModelsNorthwindOrder">
+                <RadzenTextBox style="display: block; width: 100%" @bind-Value="@(nwBlazorModelsNorthwindOrder.ShipCountry)" Name="ShipCountry">
+                </RadzenTextBox>
+              </EditTemplate>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.Order" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="70px">
+              <Template Context="nwBlazorModelsNorthwindOrder">
+                <RadzenButton Icon="edit" Size="ButtonSize.Small" Click="@((args) =>EditButtonClick(args, nwBlazorModelsNorthwindOrder))">
+                </RadzenButton>
+              </Template>
+              <EditTemplate Context="nwBlazorModelsNorthwindOrder">
+                <RadzenButton Icon="save" Size="ButtonSize.Small" Click="@((args) =>SaveButtonClick(args, nwBlazorModelsNorthwindOrder))">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="cancel" Size="ButtonSize.Small" Click="@((args) =>CancelButtonClick(args, nwBlazorModelsNorthwindOrder))">
+                </RadzenButton>
+              </EditTemplate>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.Order" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="70px">
+              <Template Context="nwBlazorModelsNorthwindOrder">
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>GridDeleteButtonClick(args, nwBlazorModelsNorthwindOrder))" @onclick:stopPropagation="true">
+                </RadzenButton>
+              </Template>
+            </RadzenGridColumn>
+          </Columns>
+        </RadzenGrid>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

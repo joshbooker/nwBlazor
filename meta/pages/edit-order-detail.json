@@ -1,0 +1,371 @@
+{
+  "components": [
+    {
+      "type": "content",
+      "container": "main",
+      "components": [
+        {
+          "type": "row",
+          "components": [
+            {
+              "type": "col",
+              "class": "col-md-12",
+              "components": [
+                {
+                  "type": "template-form",
+                  "name": "form0",
+                  "components": [
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Order",
+                              "component": "OrderID",
+                              "name": "OrderIDLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "data": "${getOrdersResult}",
+                              "textProperty": "CustomerID",
+                              "valueProperty": "OrderID",
+                              "placeholder": "Choose Order",
+                              "valueType": "int",
+                              "type": "dropdown",
+                              "name": "OrderID",
+                              "style": {
+                                "display": "block",
+                                "width": "100%"
+                              },
+                              "value": "${orderdetail.OrderID}"
+                            },
+                            {
+                              "type": "required-validator",
+                              "name": "OrderIDRequiredValidator",
+                              "component": "OrderID",
+                              "text": "OrderID is required",
+                              "style": {
+                                "position": "absolute"
+                              },
+                              "defaultValue": "0"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Product",
+                              "component": "ProductID",
+                              "name": "ProductIDLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "data": "${getProductsResult}",
+                              "textProperty": "ProductName",
+                              "valueProperty": "ProductID",
+                              "placeholder": "Choose Product",
+                              "valueType": "int",
+                              "type": "dropdown",
+                              "name": "ProductID",
+                              "style": {
+                                "display": "block",
+                                "width": "100%"
+                              },
+                              "value": "${orderdetail.ProductID}"
+                            },
+                            {
+                              "type": "required-validator",
+                              "name": "ProductIDRequiredValidator",
+                              "component": "ProductID",
+                              "text": "ProductID is required",
+                              "style": {
+                                "position": "absolute"
+                              },
+                              "defaultValue": "0"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Unit Price",
+                              "component": "UnitPrice",
+                              "name": "UnitPriceLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "valueType": "decimal",
+                              "type": "numeric",
+                              "name": "UnitPrice",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "value": "${orderdetail.UnitPrice}"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Quantity",
+                              "component": "Quantity",
+                              "name": "QuantityLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "valueType": "Int16",
+                              "type": "numeric",
+                              "name": "Quantity",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "value": "${orderdetail.Quantity}"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Discount",
+                              "component": "Discount",
+                              "name": "DiscountLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "valueType": "float",
+                              "type": "numeric",
+                              "name": "Discount",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "value": "${orderdetail.Discount}"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col offset-sm-3",
+                          "components": [
+                            {
+                              "type": "button",
+                              "buttonType": "submit",
+                              "icon": "save",
+                              "text": "Save",
+                              "buttonStyle": "primary"
+                            },
+                            {
+                              "type": "button",
+                              "buttonStyle": "light",
+                              "text": "Cancel",
+                              "events": {
+                                "click": [
+                                  {
+                                    "type": "close-popup"
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "events": {
+                    "submit": [
+                      {
+                        "error": [
+                          {
+                            "detail": "Unable to update OrderDetail",
+                            "severity": "error",
+                            "summary": "Error",
+                            "type": "notify"
+                          }
+                        ],
+                        "name": "Northwind.updateOrderDetail",
+                        "parameters": [
+                          {
+                            "name": "OrderID",
+                            "value": "${parameters.OrderID}"
+                          },
+                          {
+                            "name": "ProductID",
+                            "value": "${parameters.ProductID}"
+                          },
+                          {
+                            "name": "OrderDetail",
+                            "value": "${orderdetail}"
+                          }
+                        ],
+                        "then": [
+                          {
+                            "type": "close-popup",
+                            "result": "${orderdetail}"
+                          }
+                        ],
+                        "type": "invoke"
+                      }
+                    ]
+                  },
+                  "itemType": "NwBlazor.Models.Northwind.OrderDetail",
+                  "data": "${orderdetail}",
+                  "visible": "${orderdetail != null}"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "name": "Northwind.getOrderDetailByOrderIDAndProductID",
+        "parameters": [
+          {
+            "name": "OrderID",
+            "value": "${parameters.OrderID}"
+          },
+          {
+            "name": "ProductID",
+            "value": "${parameters.ProductID}"
+          }
+        ],
+        "then": [
+          {
+            "name": "orderdetail",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "NwBlazor.Models.Northwind.OrderDetail"
+          }
+        ],
+        "error": [],
+        "type": "invoke"
+      },
+      {
+        "name": "Northwind.getOrders",
+        "parameters": [],
+        "then": [
+          {
+            "name": "getOrdersResult",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IEnumerable<NwBlazor.Models.Northwind.Order>"
+          }
+        ],
+        "type": "invoke"
+      },
+      {
+        "name": "Northwind.getProducts",
+        "parameters": [],
+        "then": [
+          {
+            "name": "getProductsResult",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IEnumerable<NwBlazor.Models.Northwind.Product>"
+          }
+        ],
+        "type": "invoke"
+      }
+    ]
+  },
+  "name": "Edit Order Detail",
+  "layout": "Main"
+}

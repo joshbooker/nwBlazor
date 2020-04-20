@@ -1,0 +1,398 @@
+{
+  "components": [
+    {
+      "components": [
+        {
+          "name": "pageTitle",
+          "size": "H1",
+          "text": "Order Details",
+          "type": "heading"
+        },
+        {
+          "components": [
+            {
+              "class": "col-md-12",
+              "components": [
+                {
+                  "events": {
+                    "click": [
+                      {
+                        "path": "add-order",
+                        "then": [
+                          {
+                            "code": "grid0.Reload();",
+                            "type": "execute"
+                          },
+                          {
+                            "code": "await InvokeAsync(() => { StateHasChanged(); });",
+                            "type": "execute"
+                          }
+                        ],
+                        "type": "popup"
+                      }
+                    ]
+                  },
+                  "icon": "add_circle_outline",
+                  "name": "button0",
+                  "style": {
+                    "marginBottom": "10px"
+                  },
+                  "text": "Add",
+                  "type": "button"
+                },
+                {
+                  "allowFiltering": true,
+                  "allowPaging": true,
+                  "allowSorting": true,
+                  "columns": [
+                    {
+                      "formatString": "{0:d}",
+                      "property": "OrderDate",
+                      "title": "Order Date"
+                    },
+                    {
+                      "filterProperty": "Employee.LastName",
+                      "property": "EmployeeID",
+                      "sortProperty": "Employee.LastName",
+                      "template": "${data.Employee?.LastName}",
+                      "title": "Employee"
+                    },
+                    {
+                      "filterProperty": "Shipper.CompanyName",
+                      "property": "ShipVia",
+                      "sortProperty": "Shipper.CompanyName",
+                      "template": "${data.Shipper?.CompanyName}",
+                      "title": "Shipper"
+                    },
+                    {
+                      "property": "Freight",
+                      "title": "Freight"
+                    },
+                    {
+                      "property": "ShipName",
+                      "title": "Ship Name"
+                    },
+                    {
+                      "property": "ShipAddress",
+                      "title": "Ship Address"
+                    },
+                    {
+                      "property": "ShipCity",
+                      "title": "Ship City"
+                    },
+                    {
+                      "property": "ShipRegion",
+                      "title": "Ship Region"
+                    },
+                    {
+                      "property": "ShipPostalCode",
+                      "title": "Ship Postal Code"
+                    },
+                    {
+                      "filterable": false,
+                      "sortable": false,
+                      "template": [
+                        {
+                          "attributes": [
+                            {
+                              "name": "@onclick:stopPropagation",
+                              "value": true
+                            }
+                          ],
+                          "buttonStyle": "danger",
+                          "events": {
+                            "click": [
+                              {
+                                "error": [
+                                  {
+                                    "detail": "Unable to delete Order",
+                                    "severity": "error",
+                                    "summary": "Error",
+                                    "type": "notify"
+                                  }
+                                ],
+                                "name": "Northwind.deleteOrder",
+                                "parameters": [
+                                  {
+                                    "name": "OrderID",
+                                    "value": "${data.OrderID}"
+                                  }
+                                ],
+                                "then": [
+                                  {
+                                    "code": "grid0.Reload();",
+                                    "condition": "result != null",
+                                    "type": "execute"
+                                  }
+                                ],
+                                "type": "invoke"
+                              }
+                            ]
+                          },
+                          "icon": "close",
+                          "name": "gridDeleteButton",
+                          "size": "sm",
+                          "text": "",
+                          "type": "button"
+                        }
+                      ],
+                      "textAlign": "center",
+                      "width": "70px"
+                    }
+                  ],
+                  "data": "${getOrdersResult}",
+                  "events": {
+                    "loadData": [],
+                    "rowExpand": [
+                      {
+                        "name": "master",
+                        "type": "set",
+                        "value": "${event}"
+                      },
+                      {
+                        "name": "Northwind.getOrderDetails",
+                        "parameters": [
+                          {
+                            "name": "$filter",
+                            "value": "i => i.OrderID == ${event.OrderID}"
+                          }
+                        ],
+                        "then": [
+                          {
+                            "code": "foreach(var r in ${result}.ToList()){event.OrderDetails.Add(r);}",
+                            "type": "execute"
+                          }
+                        ],
+                        "type": "invoke"
+                      }
+                    ],
+                    "rowSelect": [
+                      {
+                        "parameters": [
+                          {
+                            "name": "OrderID",
+                            "value": "${event.OrderID}"
+                          }
+                        ],
+                        "path": "edit-order",
+                        "then": [
+                          {
+                            "code": "await InvokeAsync(() => { StateHasChanged(); });",
+                            "type": "execute"
+                          }
+                        ],
+                        "type": "popup"
+                      }
+                    ]
+                  },
+                  "itemType": "NwBlazor.Models.Northwind.Order",
+                  "name": "grid0",
+                  "template": [
+                    {
+                      "components": [
+                        {
+                          "class": "col-md-12 col-xl-1",
+                          "components": [
+                            {
+                              "name": "heading1",
+                              "size": "H2",
+                              "text": "Details",
+                              "type": "heading"
+                            }
+                          ],
+                          "name": "col2",
+                          "type": "col"
+                        },
+                        {
+                          "class": "col-md-12 col-xl-1",
+                          "components": [
+                            {
+                              "events": {
+                                "click": [
+                                  {
+                                    "parameters": [
+                                      {
+                                        "name": "OrderID",
+                                        "type": "integer",
+                                        "value": "${data.OrderID}"
+                                      }
+                                    ],
+                                    "path": "add-order-detail",
+                                    "then": [
+                                      {
+                                        "code": "grid1.Reload();",
+                                        "type": "execute"
+                                      }
+                                    ],
+                                    "type": "popup"
+                                  }
+                                ]
+                              },
+                              "icon": "add_circle_outline",
+                              "name": "OrderDetailAddButton",
+                              "size": "sm",
+                              "style": {
+                                "marginBottom": "10px"
+                              },
+                              "text": "",
+                              "type": "button"
+                            }
+                          ],
+                          "name": "col1",
+                          "type": "col"
+                        },
+                        {
+                          "class": "col-md-12 col-xl-10",
+                          "components": [
+                            {
+                              "allowFiltering": false,
+                              "allowPaging": false,
+                              "allowSorting": true,
+                              "columns": [
+                                {
+                                  "filterProperty": "Product.ProductName",
+                                  "property": "ProductID",
+                                  "sortProperty": "Product.ProductName",
+                                  "template": "${data.Product?.ProductName}",
+                                  "title": "Product"
+                                },
+                                {
+                                  "property": "Quantity",
+                                  "title": "Quantity"
+                                },
+                                {
+                                  "property": "Discount",
+                                  "title": "Discount"
+                                },
+                                {
+                                  "property": "UnitPrice",
+                                  "title": "Unit Price"
+                                },
+                                {
+                                  "filterable": false,
+                                  "sortable": false,
+                                  "template": [
+                                    {
+                                      "attributes": [
+                                        {
+                                          "name": "@onclick:stopPropagation",
+                                          "value": true
+                                        }
+                                      ],
+                                      "buttonStyle": "danger",
+                                      "events": {
+                                        "click": [
+                                          {
+                                            "error": [
+                                              {
+                                                "detail": "Unable to delete Order",
+                                                "severity": "error",
+                                                "summary": "Error",
+                                                "type": "notify"
+                                              }
+                                            ],
+                                            "name": "Northwind.deleteOrderDetail",
+                                            "parameters": [
+                                              {
+                                                "name": "ProductID",
+                                                "value": "${data.ProductID}"
+                                              },
+                                              {
+                                                "name": "OrderID",
+                                                "value": "${data.OrderID}"
+                                              }
+                                            ],
+                                            "then": [
+                                              {
+                                                "code": "grid1.Reload();",
+                                                "condition": "result != null",
+                                                "type": "execute"
+                                              }
+                                            ],
+                                            "type": "invoke"
+                                          }
+                                        ]
+                                      },
+                                      "icon": "close",
+                                      "name": "OrderDetailDeleteButton",
+                                      "size": "sm",
+                                      "text": "",
+                                      "type": "button"
+                                    }
+                                  ],
+                                  "textAlign": "center",
+                                  "width": "70px"
+                                }
+                              ],
+                              "data": "${data.OrderDetails}",
+                              "events": {
+                                "rowSelect": [
+                                  {
+                                    "parameters": [
+                                      {
+                                        "name": "ProductID",
+                                        "value": "${event.ProductID}"
+                                      },
+                                      {
+                                        "name": "OrderID",
+                                        "value": "${event.OrderID}"
+                                      }
+                                    ],
+                                    "path": "edit-order-detail",
+                                    "then": [
+                                      {
+                                        "code": "grid1.Reload();",
+                                        "type": "execute"
+                                      }
+                                    ],
+                                    "type": "popup"
+                                  }
+                                ]
+                              },
+                              "itemType": "NwBlazor.Models.Northwind.OrderDetail",
+                              "name": "grid1",
+                              "type": "grid"
+                            }
+                          ],
+                          "name": "col0",
+                          "type": "col"
+                        }
+                      ],
+                      "name": "row0",
+                      "type": "row"
+                    }
+                  ],
+                  "title": "",
+                  "type": "grid"
+                }
+              ],
+              "type": "col"
+            }
+          ],
+          "type": "row"
+        }
+      ],
+      "container": "main",
+      "type": "content"
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "name": "Northwind.getOrders",
+        "parameters": [],
+        "then": [
+          {
+            "name": "getOrdersResult",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IEnumerable<NwBlazor.Models.Northwind.Order>"
+          }
+        ],
+        "type": "invoke"
+      }
+    ]
+  },
+  "layout": "Main",
+  "name": "Order Details"
+}

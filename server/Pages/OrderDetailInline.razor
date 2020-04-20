@@ -1,0 +1,77 @@
+﻿@page "/order-detail-inline"
+@layout MainLayout
+@inherits NwBlazor.Pages.OrderDetailInlineComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using NwBlazor.Models.Northwind
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="Order Detail Inline">
+    </RadzenHeading>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenGrid @ref="grid0" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="@getOrderDetailsResult" TItem="NwBlazor.Models.Northwind.OrderDetail" RowUpdate="@Grid0RowUpdate">
+          <Columns>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.OrderDetail" FilterProperty="Product.ProductName" Property="ProductID" SortProperty="Product.ProductName" Title="Product">
+              <EditTemplate Context="nwBlazorModelsNorthwindOrderDetail">
+                <RadzenDropDown Data="@getProductsResult" style="display: block; width: 100%" TextProperty="ProductName" @bind-Value="@(nwBlazorModelsNorthwindOrderDetail.ProductID)" ValueProperty="ProductID" Name="ProductID">
+                </RadzenDropDown>
+              </EditTemplate>
+              <Template Context="data">
+              @(data.Product?.ProductName)
+              </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.OrderDetail" Property="Quantity" Title="Quantity">
+              <EditTemplate Context="nwBlazorModelsNorthwindOrderDetail">
+                <RadzenNumeric style="display: block; width: 100%" @bind-Value="@(nwBlazorModelsNorthwindOrderDetail.Quantity)" Name="Quantity">
+                </RadzenNumeric>
+              </EditTemplate>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.OrderDetail" Property="Discount" Title="Discount">
+              <EditTemplate Context="nwBlazorModelsNorthwindOrderDetail">
+                <RadzenNumeric style="display: block; width: 100%" @bind-Value="@(nwBlazorModelsNorthwindOrderDetail.Discount)" Name="Discount">
+                </RadzenNumeric>
+              </EditTemplate>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.OrderDetail" Property="UnitPrice" Title="Unit Price">
+              <EditTemplate Context="nwBlazorModelsNorthwindOrderDetail">
+                <RadzenNumeric style="display: block; width: 100%" @bind-Value="@(nwBlazorModelsNorthwindOrderDetail.UnitPrice)" Name="UnitPrice">
+                </RadzenNumeric>
+              </EditTemplate>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.OrderDetail" FilterProperty="Order.CustomerID" Property="OrderID" SortProperty="Order.CustomerID" Title="Order">
+              <EditTemplate Context="nwBlazorModelsNorthwindOrderDetail">
+                <RadzenDropDown Data="@getOrdersResult" style="display: block; width: 100%" TextProperty="CustomerID" @bind-Value="@(nwBlazorModelsNorthwindOrderDetail.OrderID)" ValueProperty="OrderID" Name="OrderID">
+                </RadzenDropDown>
+                <RadzenRequiredValidator Component="OrderID" Popup="true">
+                </RadzenRequiredValidator>
+              </EditTemplate>
+              <Template Context="data">
+              @(data.Order?.CustomerID)
+              </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.OrderDetail" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="70px">
+              <Template Context="nwBlazorModelsNorthwindOrderDetail">
+                <RadzenButton Icon="edit" Size="ButtonSize.Small" Click="@((args) =>EditButtonClick(args, nwBlazorModelsNorthwindOrderDetail))">
+                </RadzenButton>
+              </Template>
+              <EditTemplate Context="nwBlazorModelsNorthwindOrderDetail">
+                <RadzenButton Icon="save" Size="ButtonSize.Small" Click="@((args) =>SaveButtonClick(args, nwBlazorModelsNorthwindOrderDetail))">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="cancel" Size="ButtonSize.Small" Click="@((args) =>CancelButtonClick(args, nwBlazorModelsNorthwindOrderDetail))">
+                </RadzenButton>
+              </EditTemplate>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.OrderDetail" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="70px">
+              <Template Context="nwBlazorModelsNorthwindOrderDetail">
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>GridDeleteButtonClick(args, nwBlazorModelsNorthwindOrderDetail))" @onclick:stopPropagation="true">
+                </RadzenButton>
+              </Template>
+            </RadzenGridColumn>
+          </Columns>
+        </RadzenGrid>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>
