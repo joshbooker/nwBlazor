@@ -38,18 +38,18 @@ namespace NwBlazor.Pages
 
         protected RadzenGrid<NwBlazor.Models.Northwind.OrderDetail> grid2;
 
-        IEnumerable<NwBlazor.Models.Northwind.Customer> _getCustomersResult;
-        protected IEnumerable<NwBlazor.Models.Northwind.Customer> getCustomersResult
+        IEnumerable<NwBlazor.Models.Northwind.Customer> _Customers;
+        protected IEnumerable<NwBlazor.Models.Northwind.Customer> Customers
         {
             get
             {
-                return _getCustomersResult;
+                return _Customers;
             }
             set
             {
-                if(!object.Equals(_getCustomersResult, value))
+                if(!object.Equals(_Customers, value))
                 {
-                    _getCustomersResult = value;
+                    _Customers = value;
                     InvokeAsync(() => { StateHasChanged(); });
                 }
             }
@@ -72,35 +72,35 @@ namespace NwBlazor.Pages
             }
         }
 
-        IEnumerable<NwBlazor.Models.Northwind.Order> _getOrdersResult;
-        protected IEnumerable<NwBlazor.Models.Northwind.Order> getOrdersResult
+        NwBlazor.Models.Northwind.Customer _Customer;
+        protected NwBlazor.Models.Northwind.Customer Customer
         {
             get
             {
-                return _getOrdersResult;
+                return _Customer;
             }
             set
             {
-                if(!object.Equals(_getOrdersResult, value))
+                if(!object.Equals(_Customer, value))
                 {
-                    _getOrdersResult = value;
+                    _Customer = value;
                     InvokeAsync(() => { StateHasChanged(); });
                 }
             }
         }
 
-        dynamic _master;
-        protected dynamic master
+        NwBlazor.Models.Northwind.Order _Order;
+        protected NwBlazor.Models.Northwind.Order Order
         {
             get
             {
-                return _master;
+                return _Order;
             }
             set
             {
-                if(!object.Equals(_master, value))
+                if(!object.Equals(_Order, value))
                 {
-                    _master = value;
+                    _Order = value;
                     InvokeAsync(() => { StateHasChanged(); });
                 }
             }
@@ -113,18 +113,15 @@ namespace NwBlazor.Pages
         protected async System.Threading.Tasks.Task Load()
         {
             var northwindGetCustomersResult = await Northwind.GetCustomers();
-            getCustomersResult = northwindGetCustomersResult;
+            Customers = northwindGetCustomersResult;
 
             var northwindGetProductsResult = await Northwind.GetProducts();
             getProductsResult = northwindGetProductsResult;
-
-            var northwindGetOrdersResult = await Northwind.GetOrders();
-            getOrdersResult = northwindGetOrdersResult;
         }
 
         protected async System.Threading.Tasks.Task Button0Click(MouseEventArgs args)
         {
-            var result = await DialogService.OpenAsync<AddCustomerOrders>("Add Customer Orders", null);
+            var result = await DialogService.OpenAsync<AddCustomer>("Add Customer", null);
               grid0.Reload();
 
               await InvokeAsync(() => { StateHasChanged(); });
@@ -132,15 +129,15 @@ namespace NwBlazor.Pages
 
         protected async System.Threading.Tasks.Task Grid0RowExpand(NwBlazor.Models.Northwind.Customer args)
         {
-            master = args;
+            Customer = args;
 
             var northwindGetOrdersResult = await Northwind.GetOrders(new Query() { Filter = $@"i => i.CustomerID == ""{args.CustomerID}""" });
-            foreach(var r in northwindGetOrdersResult.ToList()){args.Orders.Add(r);};
+            foreach(var r in northwindGetOrdersResult.ToList()){Customer.Orders.Add(r);};
         }
 
         protected async System.Threading.Tasks.Task Grid0RowSelect(NwBlazor.Models.Northwind.Customer args)
         {
-            var result = await DialogService.OpenAsync<EditCustomerOrders>("Edit Customer Orders", new Dictionary<string, object>() { {"CustomerID", args.CustomerID} });
+            var result = await DialogService.OpenAsync<EditCustomer>("Edit Customer", new Dictionary<string, object>() { {"CustomerID", args.CustomerID} });
               await InvokeAsync(() => { StateHasChanged(); });
         }
 
@@ -167,15 +164,15 @@ namespace NwBlazor.Pages
 
         protected async System.Threading.Tasks.Task Grid1RowExpand(NwBlazor.Models.Northwind.Order args, dynamic data)
         {
-            master = args;
+            Order = args;
 
             var northwindGetOrderDetailsResult = await Northwind.GetOrderDetails(new Query() { Filter = $@"i => i.OrderID == {args.OrderID}" });
-            foreach(var r in northwindGetOrderDetailsResult.ToList()){args.OrderDetails.Add(r);};
+            foreach(var r in northwindGetOrderDetailsResult.ToList()){Order.OrderDetails.Add(r);};
         }
 
         protected async System.Threading.Tasks.Task Grid1RowSelect(NwBlazor.Models.Northwind.Order args, dynamic data)
         {
-            var result = await DialogService.OpenAsync<EditOrderDetail>("Edit Order Detail", new Dictionary<string, object>() { {"OrderID", args.OrderID} });
+            var result = await DialogService.OpenAsync<EditOrder>("Edit Order", new Dictionary<string, object>() { {"OrderID", args.OrderID} });
               await InvokeAsync(() => { StateHasChanged(); });
         }
 
@@ -207,7 +204,9 @@ namespace NwBlazor.Pages
 
         protected async System.Threading.Tasks.Task EditButtonClick(MouseEventArgs args, dynamic data)
         {
-            this.grid2.EditRow(data);
+            Console.Write("GridCount:" + this.grid2.Data.Count()); 
+Console.Write("GridOID:" + data.OrderID); 
+Console.Write("DataOID:" + data.Order.OrderID);this.grid2.EditRow(data);
         }
 
         protected async System.Threading.Tasks.Task SaveButtonClick(MouseEventArgs args, dynamic data)

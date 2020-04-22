@@ -1,0 +1,27 @@
+﻿@page "/tabs-test"
+@layout MainLayout
+@inherits NwBlazor.Pages.TabsTestComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using NwBlazor.Models.Northwind
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="TabsTest">
+    </RadzenHeading>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenButton Text="Hide Tab" Click="@Button0Click">
+        </RadzenButton>
+        <RadzenTabs >
+          <Tabs>
+            <RadzenTabsItem Text="Tab 1">
+            </RadzenTabsItem>
+            <RadzenTabsItem Text="Tab 2" Visible="@(!this.HideTab)">
+            </RadzenTabsItem>
+          </Tabs>
+        </RadzenTabs>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

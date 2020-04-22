@@ -1,0 +1,25 @@
+﻿@page "/tree-test"
+@layout MainLayout
+@inherits NwBlazor.Pages.TreeTestComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using NwBlazor.Models.Northwind
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="TreeTest">
+    </RadzenHeading>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenTree Data="@getCategoriesResult">
+          <ChildContent>
+            <RadzenTreeLevel ChildrenProperty="Products.Suppliers" TextProperty="CategoryName">
+            </RadzenTreeLevel>
+            <RadzenTreeLevel TextProperty="CompanyName">
+            </RadzenTreeLevel>
+          </ChildContent>
+        </RadzenTree>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

@@ -17,7 +17,7 @@
                   "events": {
                     "click": [
                       {
-                        "path": "add-customer-orders",
+                        "path": "add-customer",
                         "then": [
                           {
                             "code": "grid0.Reload();",
@@ -46,12 +46,15 @@
                   "allowSorting": true,
                   "columns": [
                     {
+                      "cssClass": "fitwidth",
                       "property": "CustomerID",
+                      "template": "",
                       "title": "Customer ID"
                     },
                     {
                       "property": "CompanyName",
-                      "title": "Company Name"
+                      "title": "Company Name",
+                      "width": "100px"
                     },
                     {
                       "property": "Address",
@@ -129,14 +132,16 @@
                       "width": "70px"
                     }
                   ],
-                  "data": "${getCustomersResult}",
+                  "count": "",
+                  "data": "${Customers}",
                   "events": {
                     "loadData": [],
                     "rowExpand": [
                       {
-                        "name": "master",
+                        "name": "Customer",
                         "type": "set",
-                        "value": "${event}"
+                        "value": "${event}",
+                        "valueType": "NwBlazor.Models.Northwind.Customer"
                       },
                       {
                         "name": "Northwind.getOrders",
@@ -148,7 +153,7 @@
                         ],
                         "then": [
                           {
-                            "code": "foreach(var r in ${result}.ToList()){event.Orders.Add(r);}",
+                            "code": "foreach(var r in ${result}.ToList()){Customer.Orders.Add(r);}",
                             "type": "execute"
                           }
                         ],
@@ -163,7 +168,7 @@
                             "value": "${event.CustomerID}"
                           }
                         ],
-                        "path": "edit-customer-orders",
+                        "path": "edit-customer",
                         "then": [
                           {
                             "code": "await InvokeAsync(() => { StateHasChanged(); });",
@@ -239,8 +244,8 @@
                           "class": "col-md-12 col-xl-10",
                           "components": [
                             {
-                              "allowFiltering": true,
-                              "allowPaging": true,
+                              "allowFiltering": false,
+                              "allowPaging": false,
                               "allowSorting": true,
                               "columns": [
                                 {
@@ -344,9 +349,10 @@
                                 "loadData": [],
                                 "rowExpand": [
                                   {
-                                    "name": "master",
+                                    "name": "Order",
                                     "type": "set",
-                                    "value": "${event}"
+                                    "value": "${event}",
+                                    "valueType": "NwBlazor.Models.Northwind.Order"
                                   },
                                   {
                                     "name": "Northwind.getOrderDetails",
@@ -358,7 +364,7 @@
                                     ],
                                     "then": [
                                       {
-                                        "code": "foreach(var r in ${result}.ToList()){event.OrderDetails.Add(r);}",
+                                        "code": "foreach(var r in ${result}.ToList()){Order.OrderDetails.Add(r);}",
                                         "type": "execute"
                                       }
                                     ],
@@ -373,7 +379,7 @@
                                         "value": "${event.OrderID}"
                                       }
                                     ],
-                                    "path": "edit-order-detail",
+                                    "path": "edit-order",
                                     "then": [
                                       {
                                         "code": "await InvokeAsync(() => { StateHasChanged(); });",
@@ -444,8 +450,8 @@
                                       "class": "col-md-12 col-xl-10",
                                       "components": [
                                         {
-                                          "allowFiltering": true,
-                                          "allowPaging": true,
+                                          "allowFiltering": false,
+                                          "allowPaging": false,
                                           "allowSorting": true,
                                           "columns": [
                                             {
@@ -517,32 +523,6 @@
                                             {
                                               "editTemplate": [
                                                 {
-                                                  "data": "${getOrdersResult}",
-                                                  "name": "OrderID",
-                                                  "style": {
-                                                    "display": "block",
-                                                    "width": "100%"
-                                                  },
-                                                  "textProperty": "CustomerID",
-                                                  "type": "dropdown",
-                                                  "value": "${data.OrderID}",
-                                                  "valueProperty": "OrderID"
-                                                },
-                                                {
-                                                  "component": "OrderID",
-                                                  "popup": true,
-                                                  "type": "required-validator"
-                                                }
-                                              ],
-                                              "filterProperty": "Order.CustomerID",
-                                              "property": "OrderID",
-                                              "sortProperty": "Order.CustomerID",
-                                              "template": "${data.Order?.CustomerID}",
-                                              "title": "Order"
-                                            },
-                                            {
-                                              "editTemplate": [
-                                                {
                                                   "events": {
                                                     "click": [
                                                       {
@@ -591,7 +571,7 @@
                                                   "events": {
                                                     "click": [
                                                       {
-                                                        "code": "${this.grid2.EditRow(data)}",
+                                                        "code": "Console.Write(\"GridCount:\" + ${this.grid2.Data.Count()}); \nConsole.Write(\"GridOID:\" + ${data.OrderID}); \nConsole.Write(\"DataOID:\" + ${data.Order.OrderID});${this.grid2.EditRow(data)}; ",
                                                         "type": "execute"
                                                       }
                                                     ]
@@ -734,7 +714,7 @@
         "parameters": [],
         "then": [
           {
-            "name": "getCustomersResult",
+            "name": "Customers",
             "type": "set",
             "value": "${result}",
             "valueType": "IEnumerable<NwBlazor.Models.Northwind.Customer>"
@@ -750,18 +730,6 @@
             "type": "set",
             "value": "${result}",
             "valueType": "IEnumerable<NwBlazor.Models.Northwind.Product>"
-          }
-        ],
-        "type": "invoke"
-      },
-      {
-        "name": "Northwind.getOrders",
-        "then": [
-          {
-            "name": "getOrdersResult",
-            "type": "set",
-            "value": "${result}",
-            "valueType": "IEnumerable<NwBlazor.Models.Northwind.Order>"
           }
         ],
         "type": "invoke"

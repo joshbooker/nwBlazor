@@ -1,0 +1,73 @@
+{
+  "access": "Everybody",
+  "components": [
+    {
+      "components": [
+        {
+          "name": "pageTitle",
+          "size": "H1",
+          "text": "TreeTest",
+          "type": "heading"
+        },
+        {
+          "components": [
+            {
+              "class": "col-md-12",
+              "components": [
+                {
+                  "data": "${getCategoriesResult}",
+                  "levels": [
+                    {
+                      "childrenProperty": "Products.Suppliers",
+                      "hasChildren": "",
+                      "schema": "Category",
+                      "textProperty": "CategoryName"
+                    },
+                    {
+                      "expanded": "",
+                      "hasChildren": "",
+                      "schema": "Supplier",
+                      "textProperty": "CompanyName"
+                    }
+                  ],
+                  "name": "tree0",
+                  "type": "tree"
+                }
+              ],
+              "name": "col0",
+              "type": "col"
+            }
+          ],
+          "name": "row0",
+          "type": "row"
+        }
+      ],
+      "container": "main",
+      "type": "content"
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "name": "Northwind.getCategories",
+        "parameters": [
+          {
+            "name": "$expand",
+            "value": "Products,Products.Suppliers"
+          }
+        ],
+        "then": [
+          {
+            "name": "getCategoriesResult",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IEnumerable<NwBlazor.Models.Northwind.Category>"
+          }
+        ],
+        "type": "invoke"
+      }
+    ]
+  },
+  "layout": "Main",
+  "name": "TreeTest"
+}

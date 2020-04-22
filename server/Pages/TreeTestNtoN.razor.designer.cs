@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace NwBlazor.Pages
 {
-    public partial class AddCustomerOrdersComponent : ComponentBase
+    public partial class TreeTestNtoNComponent : ComponentBase
     {
         [Parameter(CaptureUnmatchedValues = true)]
         public IReadOnlyDictionary<string, dynamic> Attributes { get; set; }
@@ -32,18 +32,18 @@ namespace NwBlazor.Pages
         [Inject]
         protected NorthwindService Northwind { get; set; }
 
-        NwBlazor.Models.Northwind.Customer _customer;
-        protected NwBlazor.Models.Northwind.Customer customer
+        IEnumerable<NwBlazor.Models.Northwind.Order> _getOrdersResult;
+        protected IEnumerable<NwBlazor.Models.Northwind.Order> getOrdersResult
         {
             get
             {
-                return _customer;
+                return _getOrdersResult;
             }
             set
             {
-                if(!object.Equals(_customer, value))
+                if(!object.Equals(_getOrdersResult, value))
                 {
-                    _customer = value;
+                    _getOrdersResult = value;
                     InvokeAsync(() => { StateHasChanged(); });
                 }
             }
@@ -55,25 +55,15 @@ namespace NwBlazor.Pages
         }
         protected async System.Threading.Tasks.Task Load()
         {
-            customer = new NwBlazor.Models.Northwind.Customer();
+            var northwindGetOrdersResult = await Northwind.GetOrders(new Query() { Expand = "OrderDetails.Product" });
+            getOrdersResult = northwindGetOrdersResult;
         }
 
-        protected async System.Threading.Tasks.Task Form0Submit(NwBlazor.Models.Northwind.Customer args)
+        protected async System.Threading.Tasks.Task Tree0Expand(TreeExpandEventArgs args)
         {
-            try
-            {
-                var northwindCreateCustomerResult = await Northwind.CreateCustomer(customer);
-                DialogService.Close(customer);
-            }
-            catch (Exception northwindCreateCustomerException)
-            {
-                    NotificationService.Notify(NotificationSeverity.Error, $"Error", $"Unable to create new Customer!");
-            }
-        }
-
-        protected async System.Threading.Tasks.Task Button2Click(MouseEventArgs args)
-        {
-            DialogService.Close(null);
+            var o = args.Value as Order;
+Console.WriteLine("PCOUNT:" + o.OrderDetails.Count());
+Console.WriteLine("PNAME:" + o.OrderDetails.First().Product.ProductName);
         }
     }
 }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace NwBlazor.Pages
 {
-    public partial class EditCustomerOrdersComponent : ComponentBase
+    public partial class EditCustomerComponent : ComponentBase
     {
         [Parameter(CaptureUnmatchedValues = true)]
         public IReadOnlyDictionary<string, dynamic> Attributes { get; set; }

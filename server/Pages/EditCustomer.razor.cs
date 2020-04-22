@@ -7,7 +7,7 @@ using Radzen.Blazor;
 
 namespace NwBlazor.Pages
 {
-    public partial class EditCustomerOrdersComponent
+    public partial class EditCustomerComponent
     {
 
     }

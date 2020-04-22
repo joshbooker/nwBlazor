@@ -12,23 +12,28 @@
   "name": "NWBlazor",
   "navigation": [
     "Customer Orders",
-    "Orders Inline",
     "Order Details",
     "Order Detail Inline",
-    "Order Detail"
+    "Order Detail",
+    "TreeTest",
+    "TabsTest",
+    "TreeTestNtoN"
   ],
   "pages": [
     "Customer Orders",
     "Add Order",
-    "Add Customer Orders",
-    "Edit Customer Orders",
+    "Add Customer",
+    "Edit Customer",
     "Edit Order",
     "Order Details",
     "Add Order Detail",
     "Order Detail Inline",
     "Order Inline",
     "Order Detail",
-    "Edit Order Detail"
+    "Edit Order Detail",
+    "TreeTest",
+    "TabsTest",
+    "TreeTestNtoN"
   ],
   "serverLang": "cs",
   "serverProject": true,

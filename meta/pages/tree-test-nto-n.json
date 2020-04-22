@@ -1,0 +1,82 @@
+{
+  "access": "Everybody",
+  "components": [
+    {
+      "components": [
+        {
+          "name": "pageTitle",
+          "size": "H1",
+          "text": "TreeTestNtoN",
+          "type": "heading"
+        },
+        {
+          "components": [
+            {
+              "class": "col-md-12",
+              "components": [
+                {
+                  "data": "${getOrdersResult}",
+                  "events": {
+                    "expand": [
+                      {
+                        "code": "var o = ${event.Value} as Order;\nConsole.WriteLine(\"PCOUNT:\" + ${o.OrderDetails.Count()});\nConsole.WriteLine(\"PNAME:\" + ${o.OrderDetails.First().Product.ProductName});",
+                        "type": "execute"
+                      }
+                    ]
+                  },
+                  "levels": [
+                    {
+                      "childrenProperty": "OrderDetails.Product",
+                      "hasChildren": "",
+                      "schema": "Order",
+                      "selected": "",
+                      "template": "",
+                      "textProperty": "ShipName"
+                    },
+                    {
+                      "hasChildren": "",
+                      "schema": "Product",
+                      "textProperty": "ProductName"
+                    }
+                  ],
+                  "name": "tree0",
+                  "type": "tree"
+                }
+              ],
+              "name": "col0",
+              "type": "col"
+            }
+          ],
+          "name": "row0",
+          "type": "row"
+        }
+      ],
+      "container": "main",
+      "type": "content"
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "name": "Northwind.getOrders",
+        "parameters": [
+          {
+            "name": "$expand",
+            "value": "OrderDetails.Product"
+          }
+        ],
+        "then": [
+          {
+            "name": "getOrdersResult",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IEnumerable<NwBlazor.Models.Northwind.Order>"
+          }
+        ],
+        "type": "invoke"
+      }
+    ]
+  },
+  "layout": "Main",
+  "name": "TreeTestNtoN"
+}

@@ -14,11 +14,11 @@
       <div class="col-md-12">
         <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add" Click="@Button0Click">
         </RadzenButton>
-        <RadzenGrid @ref="grid0" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="@getCustomersResult" TItem="NwBlazor.Models.Northwind.Customer" RowExpand="@Grid0RowExpand" RowSelect="@Grid0RowSelect">
+        <RadzenGrid @ref="grid0" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="@Customers" TItem="NwBlazor.Models.Northwind.Customer" RowExpand="@Grid0RowExpand" RowSelect="@Grid0RowSelect">
           <Columns>
-            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.Customer" Property="CustomerID" Title="Customer ID">
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.Customer" CssClass="fitwidth" Property="CustomerID" Title="Customer ID">
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.Customer" Property="CompanyName" Title="Company Name">
+            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.Customer" Property="CompanyName" Title="Company Name" Width="100px">
             </RadzenGridColumn>
             <RadzenGridColumn TItem="NwBlazor.Models.Northwind.Customer" Property="Address" Title="Address">
             </RadzenGridColumn>
@@ -50,7 +50,7 @@
                 </RadzenButton>
               </div>
               <div class="col-md-12 col-xl-10">
-                <RadzenGrid @ref="grid1" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="@(nwBlazorModelsNorthwindCustomer.Orders)" TItem="NwBlazor.Models.Northwind.Order" RowExpand="@((args) =>Grid1RowExpand(args, nwBlazorModelsNorthwindCustomer))" RowSelect="@((args) =>Grid1RowSelect(args, nwBlazorModelsNorthwindCustomer))">
+                <RadzenGrid @ref="grid1" AllowFiltering="false" AllowPaging="false" AllowSorting="true" Data="@(nwBlazorModelsNorthwindCustomer.Orders)" TItem="NwBlazor.Models.Northwind.Order" RowExpand="@((args) =>Grid1RowExpand(args, nwBlazorModelsNorthwindCustomer))" RowSelect="@((args) =>Grid1RowSelect(args, nwBlazorModelsNorthwindCustomer))">
                   <Columns>
                     <RadzenGridColumn TItem="NwBlazor.Models.Northwind.Order" FormatString="{0:d}" Property="OrderDate" Title="Order Date">
                     </RadzenGridColumn>
@@ -94,7 +94,7 @@
                         </RadzenButton>
                       </div>
                       <div class="col-md-12 col-xl-10">
-                        <RadzenGrid @ref="grid2" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="@(nwBlazorModelsNorthwindOrder.OrderDetails)" TItem="NwBlazor.Models.Northwind.OrderDetail" RowUpdate="@((args) =>Grid2RowUpdate(args, nwBlazorModelsNorthwindOrder))">
+                        <RadzenGrid @ref="grid2" AllowFiltering="false" AllowPaging="false" AllowSorting="true" Data="@(nwBlazorModelsNorthwindOrder.OrderDetails)" TItem="NwBlazor.Models.Northwind.OrderDetail" RowUpdate="@((args) =>Grid2RowUpdate(args, nwBlazorModelsNorthwindOrder))">
                           <Columns>
                             <RadzenGridColumn TItem="NwBlazor.Models.Northwind.OrderDetail" FilterProperty="Product.ProductName" Property="ProductID" SortProperty="Product.ProductName" Title="Product">
                               <EditTemplate Context="nwBlazorModelsNorthwindOrderDetail">
@@ -122,17 +122,6 @@
                                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@(nwBlazorModelsNorthwindOrderDetail.UnitPrice)" Name="UnitPrice">
                                 </RadzenNumeric>
                               </EditTemplate>
-                            </RadzenGridColumn>
-                            <RadzenGridColumn TItem="NwBlazor.Models.Northwind.OrderDetail" FilterProperty="Order.CustomerID" Property="OrderID" SortProperty="Order.CustomerID" Title="Order">
-                              <EditTemplate Context="nwBlazorModelsNorthwindOrderDetail">
-                                <RadzenDropDown Data="@getOrdersResult" style="display: block; width: 100%" TextProperty="CustomerID" @bind-Value="@(nwBlazorModelsNorthwindOrderDetail.OrderID)" ValueProperty="OrderID" Name="OrderID">
-                                </RadzenDropDown>
-                                <RadzenRequiredValidator Component="OrderID" Popup="true">
-                                </RadzenRequiredValidator>
-                              </EditTemplate>
-                              <Template Context="data">
-                              @(data.Order?.CustomerID)
-                              </Template>
                             </RadzenGridColumn>
                             <RadzenGridColumn TItem="NwBlazor.Models.Northwind.OrderDetail" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="70px">
                               <Template Context="nwBlazorModelsNorthwindOrderDetail">

@@ -1,0 +1,25 @@
+﻿@page "/tree-test-nto-n"
+@layout MainLayout
+@inherits NwBlazor.Pages.TreeTestNtoNComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using NwBlazor.Models.Northwind
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="TreeTestNtoN">
+    </RadzenHeading>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenTree Data="@getOrdersResult" Expand="@Tree0Expand">
+          <ChildContent>
+            <RadzenTreeLevel ChildrenProperty="OrderDetails.Product" TextProperty="ShipName">
+            </RadzenTreeLevel>
+            <RadzenTreeLevel TextProperty="ProductName">
+            </RadzenTreeLevel>
+          </ChildContent>
+        </RadzenTree>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

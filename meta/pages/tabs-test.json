@@ -1,0 +1,64 @@
+{
+  "access": "Everybody",
+  "components": [
+    {
+      "components": [
+        {
+          "name": "pageTitle",
+          "size": "H1",
+          "text": "TabsTest",
+          "type": "heading"
+        },
+        {
+          "components": [
+            {
+              "class": "col-md-12",
+              "components": [
+                {
+                  "events": {
+                    "click": [
+                      {
+                        "name": "HideTab",
+                        "type": "set",
+                        "value": "!${this.HideTab}",
+                        "valueType": "bool"
+                      }
+                    ]
+                  },
+                  "name": "button0",
+                  "text": "Hide Tab",
+                  "type": "button"
+                },
+                {
+                  "attributes": [
+                    {}
+                  ],
+                  "items": [
+                    {
+                      "text": "Tab 1"
+                    },
+                    {
+                      "text": "Tab 2",
+                      "visible": "${!this.HideTab}"
+                    }
+                  ],
+                  "name": "tabs0",
+                  "type": "tabs",
+                  "visible": true
+                }
+              ],
+              "name": "col0",
+              "type": "col"
+            }
+          ],
+          "name": "row0",
+          "type": "row"
+        }
+      ],
+      "container": "main",
+      "type": "content"
+    }
+  ],
+  "layout": "Main",
+  "name": "TabsTest"
+}
